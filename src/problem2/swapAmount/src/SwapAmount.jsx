@@ -4,22 +4,22 @@ import './assets/style.scss';
 
 const SwapAmount = () =>{
 
-    const [currencies, setCurrencies] = useState([]); // Danh sách tiền tệ
-    const [fromCurrency, setFromCurrency] = useState("USD"); // Tiền gửi
-    const [toCurrency, setToCurrency] = useState("USD"); // Tiền nhận
-    const [exchangeRates, setExchangeRates] = useState({}); // Lưu tỷ giá từ API
+    const [currencies, setCurrencies] = useState([]); 
+    const [fromCurrency, setFromCurrency] = useState("USD"); 
+    const [toCurrency, setToCurrency] = useState("USD"); 
+    const [exchangeRates, setExchangeRates] = useState({}); 
     const [inputAmount, setInputAmount] = useState("");
     const [outputAmount, setOutputAmount] = useState("");
 
     useEffect(() => {
-        // Gọi API lấy tỷ giá khi component mount
+     
         const fetchPrices = async () => {
           try {
             const response = await fetch("https://interview.switcheo.com/prices.json");
             const data = await response.json();
             console.log("data",data);
            
-            // Lưu danh sách tiền tệ
+        
             const currencyList = [...new Set(data.map(item => item.currency))];
             const rates = data.reduce((acc, item) => {
                 acc[item.currency] = item.price;
@@ -37,15 +37,13 @@ const SwapAmount = () =>{
       }, []);
 
     const handleSubmit =  () => {
-        
         const fromRate = exchangeRates[fromCurrency];
-        console.log("fromRate",fromRate);
-        
+       
         const toRate = exchangeRates[toCurrency];
-        console.log("toRate",toRate);
 
         if (!inputAmount || !fromCurrency || !toCurrency) {
-            alert("Input not empty");
+            alert("Input not empty"); 
+  
             return;
         }
         
